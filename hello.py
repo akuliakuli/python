@@ -1,11 +1,14 @@
-def greet():
-    name = input("What is your name ? ").strip().title()
-    first,second = name.split(" ")
-    sayHello(first)
+def count():
+    x = int(input("What does x equals to ? "))
+    y = int(input("What does y equals to ? "))
+    compare(x,y)
 
+def compare(a,b):
+    if a > b:
+        print("a is bigger than b")
+    elif a < b:
+        print("b is bigger than a")
+    else:
+        print("a is equal to b")
 
-def sayHello(to):
-    if to == 'Jonathan': print("Forbidden for seagulls")
-    else : print(f"Welcome aboard, {to}")
-
-greet()
+count()
