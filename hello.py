@@ -1,12 +1,15 @@
-def main():
-    name = input("What is your name ? ")
-    save_name(name)
+students = []
 
 
-def save_name(name):
-    file = open("names.txt","a")
-    file.write(f"{name}\n")
-    file.close()
+def get_name(student):
+    return student["name"]
+
+with open("names.csv") as file:
+    for line in file:
+        name,school = line.rstrip().title().split(",")
+        student = {"name":name, "school":school}
+        students.append(student)
 
 
-main()
+for student in sorted(students,key=lambda student:student['name']):  
+    print(f"{student}")
