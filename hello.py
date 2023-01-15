@@ -1,15 +1,19 @@
-students = []
+import re
+import sys
 
 
-def get_name(student):
-    return student["name"]
-
-with open("names.csv") as file:
-    for line in file:
-        name,school = line.rstrip().title().split(",")
-        student = {"name":name, "school":school}
-        students.append(student)
+def main():
+    print(parse(input("HTML: ")))
 
 
-for student in sorted(students,key=lambda student:student['name']):  
-    print(f"{student}")
+def parse(s):
+    match = re.search(r'.+src="https?://(?:www.)?youtube.com/embed/(.+?)"',s)
+    if match:
+        link = "https://youtu.be/" + match.group(1)
+        return link
+    else:
+        return None
+
+
+if __name__ == "__main__":
+    main()
