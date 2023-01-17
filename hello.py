@@ -1,19 +1,9 @@
-import re
-import sys
+def main(digits):
+    num = "453"
+    print(num[0])
 
 
-def main():
-    print(parse(input("HTML: ")))
+
+main([4,3,2,1])
 
 
-def parse(s):
-    match = re.search(r'.+src="https?://(?:www.)?youtube.com/embed/(.+?)"',s)
-    if match:
-        link = "https://youtu.be/" + match.group(1)
-        return link
-    else:
-        return None
-
-
-if __name__ == "__main__":
-    main()
