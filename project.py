@@ -65,6 +65,8 @@ score_value = 0
 
 font = pygame.font.Font("FRUIT-ACID.ttf",42)
 
+game_over_font = pygame.font.Font("FRUIT-ACID.ttf",64)
+
 text_x = 10
 text_y = 10
 def render_text(x,y):
@@ -73,6 +75,10 @@ def render_text(x,y):
 
 
 running = True
+
+def game_over_text():
+    score = game_over_font.render("GAME OVER",True,(255,255,255))
+    screen.blit(score,(210,100))
 
 
 while running:
@@ -115,6 +121,11 @@ while running:
         bullet_y -= bullet_y_change
 
     for i in range(alien_count):
+        if alien_y[i] > 440:
+            for j in range(alien_count):
+                alien_y[i] = 2000
+            game_over_text()
+            break
         alien_x[i] += alien_x_change[i]
         if alien_x[i] <= 0:
             alien_x_change[i] = 0.25
