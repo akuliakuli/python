@@ -2,6 +2,9 @@ import pygame
 import random
 import math 
 
+from pygame import mixer
+
+
 pygame.init()
 screen = pygame.display.set_mode((800,600))
 
@@ -58,7 +61,17 @@ def fire(x,y):
     screen.blit(bullet_img,(x + 16 ,y + 10))
 
 
-score = 0
+score_value = 0
+
+font = pygame.font.Font("FRUIT-ACID.ttf",42)
+
+text_x = 10
+text_y = 10
+def render_text(x,y):
+    score = font.render(f"Score : {str(score_value)}",True,(255,255,255))
+    screen.blit(score,(x,y))
+
+
 running = True
 
 
@@ -75,6 +88,8 @@ while running:
                 player_x_change += 0.3
             if event.key == pygame.K_SPACE:
                 if bullet_state == "ready":
+                    bullet_sound = mixer.Sound("laser.wav")
+                    bullet_sound.play()
                     bullet_x = player_x
                     fire(bullet_x,bullet_y)
 
@@ -111,13 +126,15 @@ while running:
         
         collision = is_collision(alien_x[i],alien_y[i],bullet_x,bullet_y)
         if collision:
+            collision_sound = mixer.Sound("explosion.wav")
+            collision_sound.play()
             bullet_y = 480
             bullet_state = "ready"
-            score += 1
-            print(score)
+            score_value += 1
             alien_x[i] = random.randint(0,735)
             alien_y[i] = random.randint(50,150)
         draw_enemy(alien_img,alien_x[i],alien_y[i],i)
- 
+
+    render_text(text_x,text_y)
     draw_object(player_img,player_x,player_y)
     pygame.display.update()
