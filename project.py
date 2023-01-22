@@ -121,7 +121,7 @@ while running:
         bullet_y -= bullet_y_change
 
     for i in range(alien_count):
-        if alien_y[i] > 100:
+        if alien_y[i] > 440:
             for j in range(alien_count):
                 alien_y[i] = 2000
             game_over_text()
