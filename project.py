@@ -4,7 +4,6 @@ import math
 
 from pygame import mixer
 
-
 pygame.init()
 screen = pygame.display.set_mode((800,600))
 
@@ -22,11 +21,12 @@ alien_y = []
 alien_x_change = []
 alien_y_change = []
 
-
+num = 32
 for i in range(alien_count):
+    num += 70
     alien_img.append(pygame.image.load("alien.png"))
-    alien_x.append(random.randint(0,800))
-    alien_y.append(random.randint(50,150))
+    alien_x.append(num)
+    alien_y.append(50)
     alien_x_change.append(0.3)
     alien_y_change.append(40)
 
@@ -66,6 +66,7 @@ score_value = 0
 font = pygame.font.Font("FRUIT-ACID.ttf",42)
 
 game_over_font = pygame.font.Font("FRUIT-ACID.ttf",64)
+start_again = pygame.font.Font("FRUIT-ACID.ttf",42)
 
 text_x = 10
 text_y = 10
@@ -79,7 +80,8 @@ running = True
 def game_over_text():
     score = game_over_font.render("GAME OVER",True,(255,255,255))
     screen.blit(score,(210,100))
-
+    start_font = start_again.render("PRESS R TO START  AGAIN",True,(255,255,255))
+    screen.blit(start_font,(160,200))
 
 while running:
     screen.fill((0,51,102))
@@ -98,13 +100,13 @@ while running:
                     bullet_sound.play()
                     bullet_x = player_x
                     fire(bullet_x,bullet_y)
-
+                    
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_LEFT:
                 player_x_change = 0
             if event.key == pygame.K_RIGHT:
                 player_x_change = 0
-    
+        
 
     player_x += player_x_change
 
@@ -126,6 +128,7 @@ while running:
                 alien_y[i] = 2000
             game_over_text()
             break
+
         alien_x[i] += alien_x_change[i]
         if alien_x[i] <= 0:
             alien_x_change[i] = 0.25
@@ -142,8 +145,8 @@ while running:
             bullet_y = 480
             bullet_state = "ready"
             score_value += 1
-            alien_x[i] = random.randint(0,735)
-            alien_y[i] = random.randint(50,150)
+            alien_x[i] = 10
+            alien_y[i] = 10
         draw_enemy(alien_img,alien_x[i],alien_y[i],i)
 
     render_text(text_x,text_y)
